@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
@@ -10,9 +10,9 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://kuwarBlog:ashu7017@properties.jttry.mongodb.net/?retryWrites=true&w=majority&appName=properties', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(process.env.MONGO_URL).then((e)=>{
+  console.log("Connected to kuwarp");
+  
 });
 
 // Define the schema
@@ -179,6 +179,6 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server is running on port 5000');
 });
